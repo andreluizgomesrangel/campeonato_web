@@ -6,26 +6,26 @@
       xmlns:f="http://java.sun.com/jsf/core">
 	<h:body>
 		  
-		  <p:dataTable var="n" value="#{adminBooksBean.products}">
-			  <p:column headerText="ID">
+		  <h:dataTable var="n" value="#{adminBooksBean.products}">
+			  <h:column headerText="ID">
 			    	<h:outputText value="#{n.id}" />
-			  </p:column>     
-			  <p:column headerText="TITULO">
+			  </h:column>     
+			  <h:column headerText="TITULO">
 			    	<h:outputText value="#{n.title}" />
-			  </p:column>    
-			  <p:column headerText="DESCRICAO">
+			  </h:column>    
+			  <h:column headerText="DESCRICAO">
 			    	<h:outputText value="#{n.description}" />
-			  </p:column>    
-			  <p:column headerText="NUMERO DE PAGINAS">
+			  </h:column>    
+			  <h:column headerText="NUMERO DE PAGINAS">
 			    	<h:outputText value="#{n.numberOfPages}" />
-			  </p:column>
-		 </p:dataTable>
+			  </h:column>
+		 </h:dataTable>
 		   
-		 <p:dataTable var="f" value="#{adminBooksBean.frases}">
-			  <p:column headerText="fras">
+		 <h:dataTable var="f" value="#{adminBooksBean.frases}">
+			  <h:column headerText="fras">
 			    	<h:outputText value="#{f}" />
-			  </p:column>     
-		 </p:dataTable>
+			  </h:column>     
+		 </h:dataTable>
 		   
 	</h:body>
 </html>
