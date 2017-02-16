@@ -1,0 +1,35 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+	<h:body>
+		<h:form>
+			<div>
+				<h:outputLabel>Titulo</h:outputLabel>
+				<h:inputText value="#{adminBooksBean.product.title}" />
+			</div>
+			<div>
+				<h:outputLabel>Descrição</h:outputLabel>
+			</div>
+				<h:inputTextarea cols="20" rows="10" value="#{adminBooksBean.product.description}"/>
+			<div>
+			</div>
+				<h:outputLabel>Número de páginas</h:outputLabel>
+				<h:inputText value="#{adminBooksBean.product.numberOfPages}" />
+			<div>
+				<h:outputLabel>Preço</h:outputLabel>
+				<h:inputText value="#{adminBooksBean.product.price}" />
+			</div>
+				<h:commandButton value="Gravar" action="#{adminBooksBean.save}"/> 
+				<h:link value="google" outcome="NewFile" /> 
+			</h:form>
+			
+			<p:dataTable var="f" value="#{adminBooksBean.frases}">
+			  <p:column headerText="f">
+			    	<h:outputText value="#{f}" />
+			  </p:column>     
+		 	</p:dataTable>
+		 
+	</h:body>
+</html>
