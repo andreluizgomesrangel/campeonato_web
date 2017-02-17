@@ -13,8 +13,10 @@ public class Main {
 	public static void main(String[] args) throws JAXBException {
 		// TODO Auto-generated method stub
 		CPartida cliente = new CPartida();
+		CTime ctime = new CTime();
 		
-		
+		//ctime.alterar(1,"nome", 12, 5, 3, 0, 2, 10, 5, 5, "jhonete");
+		//ctime.inserir(6, "outro", "rocco");
 	}
 
 }
