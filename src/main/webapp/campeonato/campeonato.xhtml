@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+	<h:body>
+		  
+		  
+		  <h:dataTable var="n" value="#{adminBooksBean.products}">
+			  <h:column headerText="ID">
+			    	<h:outputText value="#{n.id}" />
+			  </h:column>     
+			  <h:column headerText="TITULO">
+			    	<h:outputText value="#{n.title}" />
+			  </h:column>    
+			  <h:column headerText="DESCRICAO">
+			    	<h:outputText value="#{n.description}" />
+			  </h:column>    
+			  <h:column headerText="NUMERO DE PAGINAS">
+			    	<h:outputText value="#{n.numberOfPages}" />
+			  </h:column>
+		 </h:dataTable>
+		   
+		 <h:dataTable var="f" value="#{adminBooksBean.frases}">
+			  <h:column headerText="fras">
+			    	<h:outputText value="#{f}" />
+			  </h:column>     
+		 </h:dataTable>
+		   
+	</h:body>
+</html>
