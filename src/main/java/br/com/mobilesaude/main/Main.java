@@ -16,7 +16,10 @@ public class Main {
 		CTime ctime = new CTime();
 		
 		//ctime.alterar(1,"nome", 12, 5, 3, 0, 2, 10, 5, 5, "jhonete");
-		//ctime.inserir(6, "outro", "rocco");
+		ctime.inserir("outro", "roquete");
+		
+		//cliente.alterarPartida(12, 2, 1, 10, 10, true);
+		//cliente.inserirPartida(4, 2);
 	}
 
 }

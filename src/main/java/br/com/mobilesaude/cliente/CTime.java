@@ -42,15 +42,8 @@ public class CTime {
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			
 			times = (Times) jaxbUnmarshaller.unmarshal(br);
-			
-			/*if(operadoras.getOp()!=null){
-			int i;
-			for(i=0; i<operadoras.getOp().size(); i++)
-			System.out.println(operadoras.getOp().get(i).toString());
-			}else
-			System.out.println("lista nula");*/
-			
-			//con.disconnect();
+
+			con.disconnect();
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -83,15 +76,8 @@ public class CTime {
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			
 			times = (Times) jaxbUnmarshaller.unmarshal(br);
-			
-			/*if(operadoras.getOp()!=null){
-			int i;
-			for(i=0; i<operadoras.getOp().size(); i++)
-			System.out.println(operadoras.getOp().get(i).toString());
-			}else
-			System.out.println("lista nula");*/
-			
-			//con.disconnect();
+
+			con.disconnect();
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -101,7 +87,7 @@ public class CTime {
 		return times.getTimes();
 	}
 
-	public List<Time> inserir(long id, String nome, String jogador) throws JAXBException{
+	public List<Time> inserir(String nome, String jogador) throws JAXBException{
 		Times times = new Times();
 		try {
 			
@@ -109,7 +95,7 @@ public class CTime {
 			nom = tratarString(nome);
 			jog = tratarString(jogador);
 			
-			URL url = new URL("http://localhost:8080/Campeonato/ws/servico/time/inserir?id="+id+"&nome="+nom+"&pontos=0&jogos=0&vitorias=0&empates=0&derrotas=0&gp=0&gc=0&gs=0&jogador="+jog);
+			URL url = new URL("http://localhost:8080/Campeonato/ws/servico/time/inserir?nome="+nom+"&pontos=0&jogos=0&vitorias=0&empates=0&derrotas=0&gp=0&gc=0&gs=0&jogador="+jog);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			if (con.getResponseCode() != HTTP_COD_SUCESSO) {
 			
@@ -125,14 +111,7 @@ public class CTime {
 			
 			times = (Times) jaxbUnmarshaller.unmarshal(br);
 			
-			/*if(operadoras.getOp()!=null){
-			int i;
-			for(i=0; i<operadoras.getOp().size(); i++)
-			System.out.println(operadoras.getOp().get(i).toString());
-			}else
-			System.out.println("lista nula");*/
-			
-			//con.disconnect();
+			con.disconnect();
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

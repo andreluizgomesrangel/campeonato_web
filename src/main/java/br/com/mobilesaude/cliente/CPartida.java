@@ -44,14 +44,7 @@ public class CPartida {
 			
 			partidas = (Partidas) jaxbUnmarshaller.unmarshal(br);
 			
-			/*if(operadoras.getOp()!=null){
-			int i;
-			for(i=0; i<operadoras.getOp().size(); i++)
-			System.out.println(operadoras.getOp().get(i).toString());
-			}else
-			System.out.println("lista nula");*/
-			
-			//con.disconnect();
+			con.disconnect();
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -60,5 +53,83 @@ public class CPartida {
 				}
 		return partidas.getPartidas();
 	}
+	
+	public List<Partida> alterarPartida(long id, long ida, long idb, int placara, int placarb, boolean acabou ) throws JAXBException{
+		Partidas partidas = new Partidas();
+		try {
+			
+			URL url = new URL("http://localhost:8080/Campeonato/ws/servico/partida/alterar?id="+id+"&idTimeA="+ida+"&idTimeB="+idb+"&placarA="+placara+"&placarB="+placarb+"&acabou="+acabou);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			if (con.getResponseCode() != HTTP_COD_SUCESSO) {
+			
+			throw new RuntimeException("HTTP error code : "+ con.getResponseCode());
+			}
+			
+			InputStream in = con.getInputStream();
+			InputStreamReader inputStream = new InputStreamReader(in);
+			BufferedReader br = new BufferedReader(inputStream);
+			
+			JAXBContext jaxbContext = JAXBContext.newInstance(Partidas.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			
+			partidas = (Partidas) jaxbUnmarshaller.unmarshal(br);
+			
+			con.disconnect();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+				}
+		return partidas.getPartidas();
+	}
+	
+	public List<Partida> inserirPartida(long ida, long idb) throws JAXBException{
+		Partidas partidas = new Partidas();
+		try {
+			
+			URL url = new URL("http://localhost:8080/Campeonato/ws/servico/partida/insere?idTimeA="+ida+"&idTimeB="+idb+"&placarA=0&placarB=0&acabou=false");
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			if (con.getResponseCode() != HTTP_COD_SUCESSO) {
+			
+			throw new RuntimeException("HTTP error code : "+ con.getResponseCode());
+			}
+			
+			InputStream in = con.getInputStream();
+			InputStreamReader inputStream = new InputStreamReader(in);
+			BufferedReader br = new BufferedReader(inputStream);
+			
+			JAXBContext jaxbContext = JAXBContext.newInstance(Partidas.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			
+			partidas = (Partidas) jaxbUnmarshaller.unmarshal(br);
+			
+			con.disconnect();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+				}
+		return partidas.getPartidas();
+	}
+	
+	public String tratarString(String palavra) {
+		  char one;
+	      StringBuffer n = new StringBuffer( palavra.length() );
+	      for (int i=0; i<palavra.length(); i++) {
+	         one = palavra.charAt(i);
+	         switch( one ) {
+	            case ' ':
+			   n.append('%');
+			   n.append('2');
+			   n.append('0');
+	               break;
+	            default:
+	               n.append( one );
+	          }
+	      }
+		  return n.toString();
+	   }
 	
 }
