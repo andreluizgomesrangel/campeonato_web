@@ -50,6 +50,7 @@ public class CTime {
 			} catch (IOException e) {
 				e.printStackTrace();
 				}
+		times.getTimes().sort(null);
 		return times.getTimes();
 	}
 	

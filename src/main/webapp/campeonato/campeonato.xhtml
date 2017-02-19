@@ -2,31 +2,53 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 	<h:body>
 		  
-		  
-		  <h:dataTable var="n" value="#{adminBooksBean.products}">
-			  <h:column headerText="ID">
-			    	<h:outputText value="#{n.id}" />
-			  </h:column>     
-			  <h:column headerText="TITULO">
-			    	<h:outputText value="#{n.title}" />
-			  </h:column>    
-			  <h:column headerText="DESCRICAO">
-			    	<h:outputText value="#{n.description}" />
-			  </h:column>    
-			  <h:column headerText="NUMERO DE PAGINAS">
-			    	<h:outputText value="#{n.numberOfPages}" />
+		  <h:dataTable var="n" value="#{campeonatoBean.times}" 
+		  				class = "Times" border = "1">
+			  <h:column>
+			    	<f:facet name="header">Time</f:facet>
+    				#{n.nome}
 			  </h:column>
+			  <h:column>
+			    	<f:facet name="header">Pontos</f:facet>
+    				#{n.pontos}
+			  </h:column>
+			  <h:column>
+			    	<f:facet name="header">Jogos</f:facet>
+    				#{n.jogos}
+			  </h:column> 
+			  <h:column>
+			    	<f:facet name="header">Vitorias</f:facet>
+    				#{n.vitorias}
+			  </h:column> 
+			  <h:column>
+			    	<f:facet name="header">Empates</f:facet>
+    				#{n.empates}
+			  </h:column> 
+			  <h:column>
+			    	<f:facet name="header">Derrotas</f:facet>
+    				#{n.derrotas}
+			  </h:column> 
+			  <h:column>
+			    	<f:facet name="header">GP</f:facet>
+    				#{n.gp}
+			  </h:column> 
+			  <h:column>
+			    	<f:facet name="header">GC</f:facet>
+    				#{n.gc}
+			  </h:column> 
+			  <h:column>
+			    	<f:facet name="header">GS</f:facet>
+    				#{n.gs}
+			  </h:column> 
+			  <h:column>
+			    	<f:facet name="header">Rendimento</f:facet>
+    				#{n.rendimento}
+			  </h:column>        
 		 </h:dataTable>
 		   
-		 <h:dataTable var="f" value="#{adminBooksBean.frases}">
-			  <h:column headerText="fras">
-			    	<h:outputText value="#{f}" />
-			  </h:column>     
-		 </h:dataTable>
 		   
 	</h:body>
 </html>
