@@ -3,66 +3,48 @@ package br.com.mobilesaude.cliente.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.xml.bind.JAXBException;
 
-import br.com.mobilesaude.cliente.CCampeonato;
 import br.com.mobilesaude.cliente.CPartida;
 import br.com.mobilesaude.cliente.CTime;
 import br.com.mobilesaude.cliente.source.Partida;
 import br.com.mobilesaude.cliente.source.Time;
 
-import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-
 @ManagedBean
 @ViewScoped
-public class CampeonatoBean {
-
+public class Bean {
 	boolean iniciou;
 	boolean terminou;
 	List<Time> times = new ArrayList<Time>();
 	List<Partida> partidas = new ArrayList<Partida>();
 	
-	public CampeonatoBean() throws JAXBException{
+	public Bean() throws JAXBException{
 		CTime ctime = new CTime();
 		times = ctime.getLista();
 		CPartida cpartida = new CPartida();
 		partidas = cpartida.getLista();
-
+		
+		if(times.isEmpty()==false){
+			if( partidas.isEmpty() ){
+				setIniciou(false);
+			}else setIniciou(true);
+			
+			if( partidas.get( partidas.size()-1 ).isAcabou()==true ){
+				setTerminou(true);
+			}else setTerminou(false);
+		}
 	}
 
-	
-	public void refresh() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		Application application = context.getApplication();
-		ViewHandler viewHandler = application.getViewHandler();
-		UIViewRoot viewRoot = viewHandler.createView(context, context.getViewRoot().getViewId());
-		context.setViewRoot(viewRoot);
-		context.renderResponse();
-	}
 	
 	public String nomeTime_novoTime;
 	public String nomeJogador_novoTime;
 	public void pegarTime() throws JAXBException{
 		CTime ctime = new CTime();
-		if( !nomeTime_novoTime.isEmpty() && !nomeJogador_novoTime.isEmpty() ){
-			ctime.inserir(nomeTime_novoTime, nomeJogador_novoTime);
-			refresh();
-		}
+		ctime.inserir(nomeTime_novoTime, nomeJogador_novoTime);
 	}
 	
-	public int rodadas;
-	public void gerarPartidas() throws JAXBException{
-		CCampeonato ccamp = new CCampeonato();
-		if(rodadas==1 || rodadas==2){
-			ccamp.inciar(rodadas);
-			refresh();
-		}
-	}
 	
 	public boolean isIniciou() {
 		return iniciou;
@@ -115,16 +97,5 @@ public class CampeonatoBean {
 	public void setNomeTime_novoTime(String nomeTime_novoTime) {
 		this.nomeTime_novoTime = nomeTime_novoTime;
 	}
-
-
-	public int getRodadas() {
-		return rodadas;
-	}
-
-
-	public void setRodadas(int rodadas) {
-		this.rodadas = rodadas;
-	}
-	
 	
 }

@@ -1,54 +1,77 @@
-<!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
+      <h:head>
+      	<h:title value="teste"/>
+      </h:head>
 	<h:body>
+		  <h:form>
+			<div>
+				<h:outputLabel rendered="#{empty campeonatoBean.partidas}">Time</h:outputLabel>
+				<h:inputText rendered="#{empty campeonatoBean.partidas}" value="#{campeonatoBean.nomeTime_novoTime}" />
+			</div>
+			<div>
+				<h:outputLabel rendered="#{empty campeonatoBean.partidas}">Jogador</h:outputLabel>
+				<h:inputText rendered="#{empty campeonatoBean.partidas}" value="#{campeonatoBean.nomeJogador_novoTime}" />
+			</div>
+			<h:commandButton rendered="#{empty campeonatoBean.partidas}" value="add" action="#{campeonatoBean.pegarTime}"/>
+			<div>
+				<h:outputLabel rendered="#{empty campeonatoBean.partidas}">Rodadas</h:outputLabel>
+				<h:inputText rendered="#{empty campeonatoBean.partidas}" value="#{campeonatoBean.rodadas}" />
+			</div>
+			<h:commandButton value="GERAR PARTIDAS" rendered="#{empty campeonatoBean.partidas}" action="#{campeonatoBean.gerarPartidas}"/> 
+		</h:form>
 		  
 		  <h:dataTable var="n" value="#{campeonatoBean.times}" 
-		  				class = "Times" border = "1">
+		  				class = "Times" border = "1"
+		  				rendered="#{!empty campeonatoBean.times}">
+		  	  <h:column rendered="#{empty campeonatoBean.partidas}">
+			    	<f:facet name="header">Jogador</f:facet>
+    				#{n.jogador}
+			  </h:column>
 			  <h:column>
 			    	<f:facet name="header">Time</f:facet>
     				#{n.nome}
 			  </h:column>
-			  <h:column>
+			  <h:column rendered="#{!empty campeonatoBean.partidas}">
 			    	<f:facet name="header">Pontos</f:facet>
     				#{n.pontos}
 			  </h:column>
-			  <h:column>
+			  <h:column rendered="#{!empty campeonatoBean.partidas}">
 			    	<f:facet name="header">Jogos</f:facet>
     				#{n.jogos}
 			  </h:column> 
-			  <h:column>
+			  <h:column rendered="#{!empty campeonatoBean.partidas}">
 			    	<f:facet name="header">Vitorias</f:facet>
     				#{n.vitorias}
 			  </h:column> 
-			  <h:column>
+			  <h:column rendered="#{!empty campeonatoBean.partidas}">
 			    	<f:facet name="header">Empates</f:facet>
     				#{n.empates}
 			  </h:column> 
-			  <h:column>
+			  <h:column rendered="#{!empty campeonatoBean.partidas}">
 			    	<f:facet name="header">Derrotas</f:facet>
     				#{n.derrotas}
 			  </h:column> 
-			  <h:column>
+			  <h:column rendered="#{!empty campeonatoBean.partidas}">
 			    	<f:facet name="header">GP</f:facet>
     				#{n.gp}
 			  </h:column> 
-			  <h:column>
+			  <h:column rendered="#{!empty campeonatoBean.partidas}">
 			    	<f:facet name="header">GC</f:facet>
     				#{n.gc}
 			  </h:column> 
-			  <h:column>
+			  <h:column rendered="#{!empty campeonatoBean.partidas}">
 			    	<f:facet name="header">GS</f:facet>
     				#{n.gs}
 			  </h:column> 
-			  <h:column>
+			  <h:column rendered="#{!empty campeonatoBean.partidas}">
 			    	<f:facet name="header">Rendimento</f:facet>
     				#{n.rendimento}
 			  </h:column>        
-		 </h:dataTable>
-		   
+		 </h:dataTable> 
 		   
 	</h:body>
 </html>
