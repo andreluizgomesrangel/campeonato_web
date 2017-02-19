@@ -1,5 +1,7 @@
 package br.com.mobilesaude.cliente.source;
 
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -17,6 +19,8 @@ public class Partida {
 	long id;
 	private long hash;
 	boolean acabou;
+	
+	List<Artilheiro> artilheiros;
 	
 	public Time getTimeA() {
 		return timeA;
