@@ -72,6 +72,36 @@
     				#{n.rendimento}
 			  </h:column>        
 		 </h:dataTable> 
+		 
+		 <br />
+		 <h:outputText value="    ANTERIOR " rendered="#{!empty campeonatoBean.partidas}"/> 
+		 <br />
+		 <h:outputText value="#{campeonatoBean.anterPartida.timeA.nome} #{campeonatoBean.anterPartida.placarA}" 
+		 				rendered="#{!empty campeonatoBean.partidas}"/> 
+		 <h:outputText value=" x " rendered="#{!empty campeonatoBean.partidas}"/>
+		 <h:outputText value="#{campeonatoBean.anterPartida.timeB.nome} #{campeonatoBean.anterPartida.placarB}" 
+		 				rendered="#{!empty campeonatoBean.partidas}"/>
+		 <br />
+		 <br />
+		 <h:outputText value="    PROXIMA " rendered="#{!empty campeonatoBean.partidas}"/> 
+		 <br />
+		 <h:outputText value="#{campeonatoBean.proxPartida.timeA.nome}" 
+		 				rendered="#{!empty campeonatoBean.partidas}"/> 
+		 <h:outputText value=" x " rendered="#{!empty campeonatoBean.partidas}"/>
+		 <h:outputText value="#{campeonatoBean.proxPartida.timeB.nome}" 
+		 				rendered="#{!empty campeonatoBean.partidas}"/>
+		 <br />
+		 <br />
+		 <br />
+		 
+		 <h:outputText value="    ATUAL " rendered="#{!empty campeonatoBean.partidas}"/> 
+		 <br />
+		 <h:outputText value="#{campeonatoBean.partidaAtual.timeA.nome} #{campeonatoBean.partidaAtual.placarA}" 
+		 				rendered="#{!empty campeonatoBean.partidas}"/> 
+		 <h:outputText value=" x " rendered="#{!empty campeonatoBean.partidas}"/>
+		 <h:outputText value="#{campeonatoBean.partidaAtual.timeB.nome} #{campeonatoBean.partidaAtual.placarB}" 
+		 				rendered="#{!empty campeonatoBean.partidas}"/>
+		 	
 		   
 	</h:body>
 </html>

@@ -32,6 +32,23 @@ public class CampeonatoBean {
 		times = ctime.getLista();
 		CPartida cpartida = new CPartida();
 		partidas = cpartida.getLista();
+		
+		if(!partidas.isEmpty()){
+			long idpMax = partidas.get(partidas.size()-1).getId();
+			for(Partida p : partidas){
+				if(p.isAcabou()==false){
+					partidaAtual = p;
+					int idp = (int) p.getId();
+					if(idp<idpMax){
+						proxPartida = partidas.get( idp );
+					}
+					if(idp>1){
+						anterPartida = partidas.get( idp - 2);
+					}
+					break;
+				}
+			}
+		}
 
 	}
 
@@ -63,6 +80,11 @@ public class CampeonatoBean {
 			refresh();
 		}
 	}
+	
+	
+	public Partida partidaAtual;
+	public Partida proxPartida;
+	public Partida anterPartida;
 	
 	public boolean isIniciou() {
 		return iniciou;
@@ -124,6 +146,36 @@ public class CampeonatoBean {
 
 	public void setRodadas(int rodadas) {
 		this.rodadas = rodadas;
+	}
+
+
+	public Partida getPartidaAtual() {
+		return partidaAtual;
+	}
+
+
+	public void setPartidaAtual(Partida partidaAtual) {
+		this.partidaAtual = partidaAtual;
+	}
+
+
+	public Partida getProxPartida() {
+		return proxPartida;
+	}
+
+
+	public void setProxPartida(Partida proxPartida) {
+		this.proxPartida = proxPartida;
+	}
+
+
+	public Partida getAnterPartida() {
+		return anterPartida;
+	}
+
+
+	public void setAnterPartida(Partida anterPartida) {
+		this.anterPartida = anterPartida;
 	}
 	
 	
