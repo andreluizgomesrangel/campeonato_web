@@ -54,6 +54,7 @@ public class CampeonatoBean {
 
 	
 	public void refresh() {
+		times.sort(null);
 		FacesContext context = FacesContext.getCurrentInstance();
 		Application application = context.getApplication();
 		ViewHandler viewHandler = application.getViewHandler();
@@ -85,6 +86,34 @@ public class CampeonatoBean {
 	public Partida partidaAtual;
 	public Partida proxPartida;
 	public Partida anterPartida;
+	
+	
+	public void golA() throws JAXBException{
+		CPartida p = new CPartida();
+		partidas = p.golA();
+		
+		CTime t = new CTime();
+		times = t.fazerGol(partidaAtual.getTimeA().getId());
+		times = t.levarGol(partidaAtual.getTimeB().getId());
+		
+		refresh();
+	}
+	
+	public void golB() throws JAXBException{
+		CPartida p = new CPartida();
+		partidas = p.golB();
+		
+		CTime t = new CTime();
+		times = t.fazerGol(partidaAtual.getTimeB().getId());
+		times = t.levarGol(partidaAtual.getTimeA().getId());
+		refresh();
+	}
+	
+	public void finalizarPartida() throws JAXBException{
+		CPartida p = new CPartida();
+		p.finalizar(partidaAtual.getId());
+		refresh();
+	}
 	
 	public boolean isIniciou() {
 		return iniciou;

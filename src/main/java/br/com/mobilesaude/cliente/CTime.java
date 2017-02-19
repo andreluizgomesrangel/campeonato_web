@@ -122,6 +122,157 @@ public class CTime {
 		return times.getTimes();
 	}
 	
+	public List<Time> fazerGol(long id) throws JAXBException{
+		Times times = new Times();
+		try {
+			
+			URL url = new URL("http://localhost:8080/Campeonato/ws/servico/time/fazerGol?id="+id);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			if (con.getResponseCode() != HTTP_COD_SUCESSO) {
+			
+			throw new RuntimeException("HTTP error code : "+ con.getResponseCode());
+			}
+			
+			InputStream in = con.getInputStream();
+			InputStreamReader inputStream = new InputStreamReader(in);
+			BufferedReader br = new BufferedReader(inputStream);
+			
+			JAXBContext jaxbContext = JAXBContext.newInstance(Times.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			
+			times = (Times) jaxbUnmarshaller.unmarshal(br);
+			
+			con.disconnect();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+				}
+		return times.getTimes();
+	}
+	
+	public List<Time> levarGol(long id) throws JAXBException{
+		Times times = new Times();
+		try {
+			
+			URL url = new URL("http://localhost:8080/Campeonato/ws/servico/time/levarGol?id="+id);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			if (con.getResponseCode() != HTTP_COD_SUCESSO) {
+			
+			throw new RuntimeException("HTTP error code : "+ con.getResponseCode());
+			}
+			
+			InputStream in = con.getInputStream();
+			InputStreamReader inputStream = new InputStreamReader(in);
+			BufferedReader br = new BufferedReader(inputStream);
+			
+			JAXBContext jaxbContext = JAXBContext.newInstance(Times.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			
+			times = (Times) jaxbUnmarshaller.unmarshal(br);
+			
+			con.disconnect();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+				}
+		return times.getTimes();
+	}
+	
+	
+	public List<Time> vencer(long id) throws JAXBException{
+		Times times = new Times();
+		try {
+			
+			URL url = new URL("http://localhost:8080/Campeonato/ws/servico/time/vencer?id="+id);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			if (con.getResponseCode() != HTTP_COD_SUCESSO) {
+			
+			throw new RuntimeException("HTTP error code : "+ con.getResponseCode());
+			}
+			
+			InputStream in = con.getInputStream();
+			InputStreamReader inputStream = new InputStreamReader(in);
+			BufferedReader br = new BufferedReader(inputStream);
+			
+			JAXBContext jaxbContext = JAXBContext.newInstance(Times.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			
+			times = (Times) jaxbUnmarshaller.unmarshal(br);
+			
+			con.disconnect();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+				}
+		return times.getTimes();
+	}
+	
+	public List<Time> empatar(long id) throws JAXBException{
+		Times times = new Times();
+		try {
+			
+			URL url = new URL("http://localhost:8080/Campeonato/ws/servico/time/empatar?id="+id);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			if (con.getResponseCode() != HTTP_COD_SUCESSO) {
+			
+			throw new RuntimeException("HTTP error code : "+ con.getResponseCode());
+			}
+			
+			InputStream in = con.getInputStream();
+			InputStreamReader inputStream = new InputStreamReader(in);
+			BufferedReader br = new BufferedReader(inputStream);
+			
+			JAXBContext jaxbContext = JAXBContext.newInstance(Times.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			
+			times = (Times) jaxbUnmarshaller.unmarshal(br);
+			
+			con.disconnect();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+				}
+		return times.getTimes();
+	}
+	
+	public List<Time> perder(long id) throws JAXBException{
+		Times times = new Times();
+		try {
+			
+			URL url = new URL("http://localhost:8080/Campeonato/ws/servico/time/perder?id="+id);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			if (con.getResponseCode() != HTTP_COD_SUCESSO) {
+			
+			throw new RuntimeException("HTTP error code : "+ con.getResponseCode());
+			}
+			
+			InputStream in = con.getInputStream();
+			InputStreamReader inputStream = new InputStreamReader(in);
+			BufferedReader br = new BufferedReader(inputStream);
+			
+			JAXBContext jaxbContext = JAXBContext.newInstance(Times.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			
+			times = (Times) jaxbUnmarshaller.unmarshal(br);
+			
+			con.disconnect();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+				}
+		return times.getTimes();
+	}
+	
 	public String tratarString(String palavra) {
 		  char one;
 	      StringBuffer n = new StringBuffer( palavra.length() );
@@ -139,5 +290,8 @@ public class CTime {
 	      }
 		  return n.toString();
 	   }
+	
+	
+	
 	
 }

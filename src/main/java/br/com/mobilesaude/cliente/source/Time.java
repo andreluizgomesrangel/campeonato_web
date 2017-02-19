@@ -116,8 +116,8 @@ public class Time implements Comparable<Time> {
 			if( this.jogos > o.jogos ) return 1;
 			if( this.jogos < o.jogos ) return -1;
 			if( this.jogos == o.jogos){
-				if( this.gp > o.gp ) return 1;
-				if( this.gp < o.gp ) return -1;
+				if( this.gp > o.gp ) return -1;
+				if( this.gp < o.gp ) return 1;
 			}
 		}
 		return 0;

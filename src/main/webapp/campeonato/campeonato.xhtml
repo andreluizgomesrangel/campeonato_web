@@ -101,7 +101,11 @@
 		 <h:outputText value=" x " rendered="#{!empty campeonatoBean.partidas}"/>
 		 <h:outputText value="#{campeonatoBean.partidaAtual.timeB.nome} #{campeonatoBean.partidaAtual.placarB}" 
 		 				rendered="#{!empty campeonatoBean.partidas}"/>
-		 	
+		 <h:form>
+		 	<h:commandButton value=" GolA " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.golA}"/> 
+		 	<h:commandButton value=" GolB " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.golB}"/>
+		 	<h:commandButton value=" Fim de Partida " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.finalizarPartida}"/>  
+		 </h:form>
 		   
 	</h:body>
 </html>

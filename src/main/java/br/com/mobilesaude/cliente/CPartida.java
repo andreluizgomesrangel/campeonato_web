@@ -15,6 +15,7 @@ import javax.xml.bind.Unmarshaller;
 
 import br.com.mobilesaude.cliente.listas.Partidas;
 import br.com.mobilesaude.cliente.source.Partida;
+import br.com.mobilesaude.cliente.source.Time;
 
 
 public class CPartida {
@@ -113,6 +114,88 @@ public class CPartida {
 				}
 		return partidas.getPartidas();
 	}
+	
+	public List<Partida> golA() throws JAXBException{
+		List<Partida> partidas = getLista();
+		
+		long id = 0;
+		
+		if(!partidas.isEmpty()){
+			for(Partida p : partidas){
+				if(p.isAcabou()==false){
+					id = p.getId();
+					break;
+				}
+			}
+		}
+		
+		Partida atual = partidas.get( (int) (id - 1) );
+		Time tA, tB;
+		tA = atual.getTimeA();
+		tB = atual.getTimeB();
+		int placarA = atual.getPlacarA();
+		atual.setPlacarA( placarA + 1 );
+		
+		return alterarPartida(id, tA.getId(), tB.getId(), atual.getPlacarA(), atual.getPlacarB(), atual.isAcabou());
+		
+	}
+	
+	
+	public List<Partida> golB() throws JAXBException{
+		List<Partida> partidas = getLista();
+		
+		long id = 0;
+		
+		if(!partidas.isEmpty()){
+			for(Partida p : partidas){
+				if(p.isAcabou()==false){
+					id = p.getId();
+					break;
+				}
+			}
+		}
+		
+		Partida atual = partidas.get( (int) (id - 1) );
+		Time tA, tB;
+		tA = atual.getTimeA();
+		tB = atual.getTimeB();
+		int placarB = atual.getPlacarB();
+		atual.setPlacarB( placarB + 1 );
+		
+		return alterarPartida(id, tA.getId(), tB.getId(), atual.getPlacarA(), atual.getPlacarB(), atual.isAcabou());
+		
+	}
+	
+	public List<Partida> finalizar(long id) throws JAXBException{
+		Partidas partidas = new Partidas();
+		try {
+			
+			URL url = new URL("http://localhost:8080/Campeonato/ws/servico/partida/finalizar?id="+id);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			if (con.getResponseCode() != HTTP_COD_SUCESSO) {
+			
+			throw new RuntimeException("HTTP error code : "+ con.getResponseCode());
+			}
+			
+			InputStream in = con.getInputStream();
+			InputStreamReader inputStream = new InputStreamReader(in);
+			BufferedReader br = new BufferedReader(inputStream);
+			
+			JAXBContext jaxbContext = JAXBContext.newInstance(Partidas.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			
+			partidas = (Partidas) jaxbUnmarshaller.unmarshal(br);
+			
+			con.disconnect();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+				}
+		return partidas.getPartidas();
+	}
+	
 	
 	public String tratarString(String palavra) {
 		  char one;
