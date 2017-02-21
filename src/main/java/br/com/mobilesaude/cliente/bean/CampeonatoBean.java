@@ -6,8 +6,11 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 import br.com.mobilesaude.cliente.CCampeonato;
+import br.com.mobilesaude.cliente.CGol;
 import br.com.mobilesaude.cliente.CPartida;
 import br.com.mobilesaude.cliente.CTime;
+import br.com.mobilesaude.cliente.source.Artilheiro;
+import br.com.mobilesaude.cliente.source.Gol;
 import br.com.mobilesaude.cliente.source.Partida;
 import br.com.mobilesaude.cliente.source.Time;
 
@@ -26,12 +29,17 @@ public class CampeonatoBean {
 	boolean terminou;
 	List<Time> times = new ArrayList<Time>();
 	List<Partida> partidas = new ArrayList<Partida>();
+	List<Gol> gols = new ArrayList<Gol>();
+	List<Artilheiro> artilheiros = new ArrayList<Artilheiro>();
 	
 	public CampeonatoBean() throws JAXBException{
 		CTime ctime = new CTime();
 		times = ctime.getLista();
 		CPartida cpartida = new CPartida();
 		partidas = cpartida.getLista();
+		CGol cgol = new CGol();
+		gols = cgol.getLista();
+		
 		
 		if(!partidas.isEmpty()){
 			long idpMax = partidas.get(partidas.size()-1).getId();
@@ -87,10 +95,15 @@ public class CampeonatoBean {
 	public Partida proxPartida;
 	public Partida anterPartida;
 	
+	String artilheiro;
 	
 	public void golA() throws JAXBException{
 		CPartida p = new CPartida();
 		partidas = p.golA();
+		
+		CGol cgol = new CGol();
+		cgol.inserir(artilheiro, partidaAtual.getTimeA().getId(),partidaAtual.getId());
+		//System.out.println(artilheiro+" "+partidaAtual.getId()+" "+partidaAtual.getTimeA().getId());
 		
 		CTime t = new CTime();
 		times = t.fazerGol(partidaAtual.getTimeA().getId());
@@ -102,6 +115,10 @@ public class CampeonatoBean {
 	public void golB() throws JAXBException{
 		CPartida p = new CPartida();
 		partidas = p.golB();
+		
+		CGol cgol = new CGol();
+		cgol.inserir(artilheiro, partidaAtual.getTimeB().getId(),partidaAtual.getId());
+		//System.out.println(artilheiro+" "+partidaAtual.getId()+" "+partidaAtual.getTimeB().getId());
 		
 		CTime t = new CTime();
 		times = t.fazerGol(partidaAtual.getTimeB().getId());
@@ -205,6 +222,36 @@ public class CampeonatoBean {
 
 	public void setAnterPartida(Partida anterPartida) {
 		this.anterPartida = anterPartida;
+	}
+
+
+	public String getArtilheiro() {
+		return artilheiro;
+	}
+
+
+	public void setArtilheiro(String artilheiro) {
+		this.artilheiro = artilheiro;
+	}
+
+
+	public List<Gol> getGols() {
+		return gols;
+	}
+
+
+	public void setGols(List<Gol> gols) {
+		this.gols = gols;
+	}
+
+
+	public List<Artilheiro> getArtilheiros() {
+		return artilheiros;
+	}
+
+
+	public void setArtilheiros(List<Artilheiro> artilheiros) {
+		this.artilheiros = artilheiros;
 	}
 	
 	

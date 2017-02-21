@@ -104,6 +104,7 @@
 		 <h:form>
 		 	<h:commandButton value=" GolA " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.golA}"/> 
 		 	<h:commandButton value=" GolB " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.golB}"/>
+		 	<h:inputText 	value="#{campeonatoBean.artilheiro}" rendered="#{!empty campeonatoBean.partidas}" />
 		 	<h:commandButton value=" Fim de Partida " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.finalizarPartida}"/>  
 		 </h:form>
 		   
