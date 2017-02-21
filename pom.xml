@@ -30,6 +30,11 @@
       <artifactId>jsr250-api</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+  <groupId>com.squareup.okhttp3</groupId>
+  <artifactId>okhttp</artifactId>
+  <version>3.6.0</version>
+</dependency>
   </dependencies>
   <dependencyManagement>
     <dependencies>
@@ -46,6 +51,11 @@
         <version>1.0</version>
         <scope>provided</scope>
       </dependency>
+      <dependency>
+  <groupId>com.squareup.okhttp3</groupId>
+  <artifactId>okhttp</artifactId>
+  <version>3.6.0</version>
+</dependency>
     </dependencies>
   </dependencyManagement>
 </project>
