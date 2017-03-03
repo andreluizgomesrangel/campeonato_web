@@ -24,6 +24,8 @@ public class AdminBooksBean implements Serializable{
 	
 	List<String> frases;
 	
+	
+	
 	public AdminBooksBean(){
 		products = new ArrayList<Book>();
 		System.out.println("AdminBooksBean");

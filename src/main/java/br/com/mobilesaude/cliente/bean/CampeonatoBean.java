@@ -31,6 +31,11 @@ public class CampeonatoBean {
 	List<Partida> partidas = new ArrayList<Partida>();
 	List<Gol> gols = new ArrayList<Gol>();
 	List<Artilheiro> artilheiros = new ArrayList<Artilheiro>();
+	String mensagemFimPartida;
+	
+	
+	
+	List<Artilheiro> artilheiros2 = new ArrayList<Artilheiro>();
 	
 	public CampeonatoBean() throws JAXBException{
 		CTime ctime = new CTime();
@@ -41,11 +46,61 @@ public class CampeonatoBean {
 		gols = cgol.getLista();
 		
 		
+		for( int i=0; i<times.size(); i++ ){
+			times.get(i).setPosicao(i+1);
+		}
+		
 		if(!partidas.isEmpty()){
+			setTerminou(partidas.get(partidas.size()-1).isAcabou());
+			for( Gol gol : gols ){
+				
+				int i = (int) (gol.getIdPartida() - 1) ;
+				Partida golPartida = partidas.get( i );
+				
+				//setantdo times e partidas de cada gol
+				gol.setTime( buscarTim( gol.getIdTime() , times ) );
+				gol.setPartida(  partidas.get(  (int) ( gol.getIdPartida() - 1) )  );
+				
+				//gols de cada partida
+				golPartida.addGol(gol);
+				
+				//gols do campeonato
+				//gols.add(gol);
+				
+				Artilheiro art = new Artilheiro();
+				art.setNome( gol.getNomeArtilheiro() );
+				art.setTime( buscarTim( gol.getIdTime() , times ) );
+				//System.out.println( art.getNome()+" "+art.getTime().getNome()+" "+times.get(  (int) ( gol.getIdTime() - 1) ).getNome() );
+				art.setGols(1);
+				addArtilhiero(art, artilheiros);
+			}
+			
+			artilheiros.sort(null);
+			
+			for( int i=0; i<artilheiros.size(); i++ ){
+				artilheiros.get(i).setPosicao(i+1);
+				if( !artilheiros.get(i).getNome().equals("-") && !artilheiros.get(i).getNome().equals("WO")){
+					artilheiros2.add( artilheiros.get(i) );
+				}
+			}
+			
+			for( int i = 0; i<artilheiros2.size(); i++ ){
+				artilheiros2.get(i).setPosicao(i+1);
+			}
+			
 			long idpMax = partidas.get(partidas.size()-1).getId();
 			for(Partida p : partidas){
 				if(p.isAcabou()==false){
 					partidaAtual = p;
+					if(partidaAtual.getPlacarA() > partidaAtual.getPlacarB()){
+						mensagemFimPartida = partidaAtual.getTimeA().getNome()+" vence ";
+					}
+					if(partidaAtual.getPlacarA() < partidaAtual.getPlacarB()){
+						mensagemFimPartida = partidaAtual.getTimeB().getNome()+" vence ";
+					}
+					if(partidaAtual.getPlacarA() == partidaAtual.getPlacarB()){
+						mensagemFimPartida = " EMPATAR ";
+					}
 					int idp = (int) p.getId();
 					if(idp<idpMax){
 						proxPartida = partidas.get( idp );
@@ -95,35 +150,78 @@ public class CampeonatoBean {
 	public Partida proxPartida;
 	public Partida anterPartida;
 	
-	String artilheiro;
+	
+	
+	String artilheiro = null;
 	
 	public void golA() throws JAXBException{
-		CPartida p = new CPartida();
-		partidas = p.golA();
-		
-		CGol cgol = new CGol();
-		cgol.inserir(artilheiro, partidaAtual.getTimeA().getId(),partidaAtual.getId());
-		//System.out.println(artilheiro+" "+partidaAtual.getId()+" "+partidaAtual.getTimeA().getId());
-		
-		CTime t = new CTime();
-		times = t.fazerGol(partidaAtual.getTimeA().getId());
-		times = t.levarGol(partidaAtual.getTimeB().getId());
-		
-		refresh();
+		if(!artilheiro.isEmpty()){
+			CPartida p = new CPartida();
+			partidas = p.golA();
+			
+			CGol cgol = new CGol();
+			cgol.inserir(artilheiro, partidaAtual.getTimeA().getId(),partidaAtual.getId());
+			//System.out.println(artilheiro+" "+partidaAtual.getId()+" "+partidaAtual.getTimeA().getId());
+			
+			CTime t = new CTime();
+			times = t.fazerGol(partidaAtual.getTimeA().getId());
+			times = t.levarGol(partidaAtual.getTimeB().getId());
+			
+			
+			refresh();
+		}
 	}
 	
 	public void golB() throws JAXBException{
-		CPartida p = new CPartida();
-		partidas = p.golB();
+		if(!artilheiro.isEmpty()){
+			CPartida p = new CPartida();
+			partidas = p.golB();
+			
+			CGol cgol = new CGol();
+			cgol.inserir(artilheiro, partidaAtual.getTimeB().getId(),partidaAtual.getId());
+			//System.out.println(artilheiro+" "+partidaAtual.getId()+" "+partidaAtual.getTimeB().getId());
+			
+			CTime t = new CTime();
+			times = t.fazerGol(partidaAtual.getTimeB().getId());
+			times = t.levarGol(partidaAtual.getTimeA().getId());
+			
+			
+			refresh();
+		}
+	}
+	
+	public Time buscarTim(long id, List<Time> lista){
 		
-		CGol cgol = new CGol();
-		cgol.inserir(artilheiro, partidaAtual.getTimeB().getId(),partidaAtual.getId());
-		//System.out.println(artilheiro+" "+partidaAtual.getId()+" "+partidaAtual.getTimeB().getId());
+		for(Time t : lista){
+			if( t.getId() == id ){
+				return t;
+			}
+		}
+		return null;
 		
-		CTime t = new CTime();
-		times = t.fazerGol(partidaAtual.getTimeB().getId());
-		times = t.levarGol(partidaAtual.getTimeA().getId());
-		refresh();
+	}
+	
+	public Artilheiro buscarArt( Artilheiro art, List<Artilheiro> lista ){
+		for(Artilheiro a : lista){
+			if( a.getNome().equals( art.getNome() ) ){
+				return a;
+			}
+		}
+		return null;
+	}
+	
+	public void addArtilhiero(Artilheiro art, List<Artilheiro> lista){
+		
+		Artilheiro busca = buscarArt( art, lista );
+		if(busca==null){
+			artilheiros.add(art);
+		}
+		else{
+			int gols = busca.getGols();
+			gols++;
+			busca.setGols(gols);
+		}
+		
 	}
 	
 	public void finalizarPartida() throws JAXBException{
@@ -252,6 +350,26 @@ public class CampeonatoBean {
 
 	public void setArtilheiros(List<Artilheiro> artilheiros) {
 		this.artilheiros = artilheiros;
+	}
+
+
+	public String getMensagemFimPartida() {
+		return mensagemFimPartida;
+	}
+
+
+	public void setMensagemFimPartida(String mensagemFimPartida) {
+		this.mensagemFimPartida = mensagemFimPartida;
+	}
+
+
+	public List<Artilheiro> getArtilheiros2() {
+		return artilheiros2;
+	}
+
+
+	public void setArtilheiros2(List<Artilheiro> artilheiros2) {
+		this.artilheiros2 = artilheiros2;
 	}
 	
 	

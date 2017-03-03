@@ -1,0 +1,45 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+      <h:head>
+      	<h:title value="GOLS"/>
+      </h:head>
+	<h:body>
+		 <br />
+		 
+		 <h:outputText value="    ATUAL " rendered="#{!empty campeonatoBean.partidas}"/> 
+		 <br />
+		 <h:outputText value="#{campeonatoBean.partidaAtual.timeA.nome} #{campeonatoBean.partidaAtual.placarA}" 
+		 				rendered="#{!empty campeonatoBean.partidas}"/> 
+		 <h:outputText value=" x " rendered="#{!empty campeonatoBean.partidas}"/>
+		 <h:outputText value="#{campeonatoBean.partidaAtual.timeB.nome} #{campeonatoBean.partidaAtual.placarB}" 
+		 				rendered="#{!empty campeonatoBean.partidas}"/>
+		 
+		
+		
+		<br />
+		
+		
+		 <br />
+		<h:outputText value=" Gols Campeonato " rendered="#{!empty campeonatoBean.gols}"/>
+		 <h:dataTable var="n" value="#{campeonatoBean.gols}" 
+		  				class = "Times" border = "1"
+		  				rendered="#{!empty campeonatoBean.gols}">
+		  	  <h:column rendered="#{!empty campeonatoBean.gols}">
+			    	<f:facet name="header">Jogador</f:facet>
+    				#{n.nomeArtilheiro}
+			  </h:column>
+			  <h:column rendered="#{!empty campeonatoBean.gols}">
+			    	<f:facet name="header">Time</f:facet>
+    				#{n.time.nome}
+			  </h:column>
+			  <h:column rendered="#{!empty campeonatoBean.gols}">
+			    	<f:facet name="header">Partida</f:facet>
+    				#{n.partida.confronto}
+			  </h:column>
+		</h:dataTable>	  
+		   
+	</h:body>
+</html>

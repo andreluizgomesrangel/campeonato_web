@@ -2,6 +2,7 @@ package br.com.mobilesaude.cliente.source;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -23,6 +24,8 @@ public class Time implements Comparable<Time> {
 	double rendimento;
 	List<Partida> partidas = new ArrayList<Partida>();
 	String jogador;
+	int posicao;
+	
 	public long getId() {
 		return id;
 	}
@@ -96,6 +99,7 @@ public class Time implements Comparable<Time> {
 		this.jogador = jogador;
 	}
 	public double getRendimento() {
+		rendimento = Double.valueOf(String.format(Locale.US, "%.2f", rendimento));
 		return rendimento;
 	}
 	public void setRendimento(double rendimento) {
@@ -118,9 +122,19 @@ public class Time implements Comparable<Time> {
 			if( this.jogos == o.jogos){
 				if( this.gp > o.gp ) return -1;
 				if( this.gp < o.gp ) return 1;
+				if( this.gp == o.gp ){
+					if( this.gs > o.gs ) return -1;
+					if( this.gs < o.gs ) return 1;
+				}
 			}
 		}
 		return 0;
+	}
+	public int getPosicao() {
+		return posicao;
+	}
+	public void setPosicao(int posicao) {
+		this.posicao = posicao;
 	}
 	
 	

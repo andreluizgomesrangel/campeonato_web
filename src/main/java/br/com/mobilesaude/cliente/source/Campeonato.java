@@ -1,5 +1,6 @@
 package br.com.mobilesaude.cliente.source;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -19,6 +20,7 @@ public class Campeonato {
 	List<Partida> partidas;
 	Partida partidaAtual;
 	long idPartida;
+	
 	public List<Time> getTimes() {
 		return times;
 	}

@@ -1,5 +1,6 @@
 package br.com.mobilesaude.cliente.source;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -20,7 +21,13 @@ public class Partida {
 	private long hash;
 	boolean acabou;
 	
-	List<Artilheiro> artilheiros;
+	int posicao;
+	
+	String confronto;
+	String confronto_placar;
+	
+	List<Artilheiro> artilheiros = new ArrayList<Artilheiro>();
+	List<Gol> gols = new ArrayList<Gol>();
 	
 	public Time getTimeA() {
 		return timeA;
@@ -74,6 +81,49 @@ public class Partida {
 		System.out.println(timeA.getNome()+"  x  "+timeB.getNome());
 		System.out.println("  "+placarA    +"    x    "+placarB);
 	}
+	public List<Artilheiro> getArtilheiros() {
+		return artilheiros;
+	}
+	public void setArtilheiros(List<Artilheiro> artilheiros) {
+		this.artilheiros = artilheiros;
+	}
+	public List<Gol> getGols() {
+		return gols;
+	}
+	public void setGols(List<Gol> gols) {
+		this.gols = gols;
+	}
 	
+	public void addGol(Gol g){
+		gols.add(g);
+	}
+	
+	public String confronto(){
+		return timeA.getNome()+" x "+timeB.getNome();
+	}
+	
+	public String confronto_placar(){
+		return timeA.getNome()+" "+placarA+" x "+placarB+" "+timeB.getNome();
+	}
+	
+	public String getConfronto() {
+		if(acabou==true) return confronto_placar();
+		return confronto();
+	}
+	public void setConfronto(String confronto) {
+		this.confronto = confronto();
+	}
+	public String getConfronto_placar() {
+		return confronto_placar();
+	}
+	public void setConfronto_placar(String confronto_placar) {
+		this.confronto_placar = confronto_placar();
+	}
+	public int getPosicao() {
+		return posicao;
+	}
+	public void setPosicao(int posicao) {
+		this.posicao = posicao;
+	}
 	
 }

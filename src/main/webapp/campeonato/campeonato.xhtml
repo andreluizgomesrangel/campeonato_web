@@ -5,75 +5,179 @@
       xmlns:f="http://java.sun.com/jsf/core">
       <h:head>
       	<h:title value="teste"/>
+      	
       </h:head>
 	<h:body>
-		  <h:form>
-			<div>
-				<h:outputLabel rendered="#{empty campeonatoBean.partidas}">Time</h:outputLabel>
-				<h:inputText rendered="#{empty campeonatoBean.partidas}" value="#{campeonatoBean.nomeTime_novoTime}" />
-			</div>
-			<div>
-				<h:outputLabel rendered="#{empty campeonatoBean.partidas}">Jogador</h:outputLabel>
-				<h:inputText rendered="#{empty campeonatoBean.partidas}" value="#{campeonatoBean.nomeJogador_novoTime}" />
-			</div>
-			<h:commandButton rendered="#{empty campeonatoBean.partidas}" value="add" action="#{campeonatoBean.pegarTime}"/>
-			<div>
-				<h:outputLabel rendered="#{empty campeonatoBean.partidas}">Rodadas</h:outputLabel>
-				<h:inputText rendered="#{empty campeonatoBean.partidas}" value="#{campeonatoBean.rodadas}" />
-			</div>
-			<h:commandButton value="GERAR PARTIDAS" rendered="#{empty campeonatoBean.partidas}" action="#{campeonatoBean.gerarPartidas}"/> 
-		</h:form>
-		  
+	
+	<h2>CAMPEONATO</h2>
+	
+   <hr />
+   <h:form>
+      <h:panelGrid id="panel" columns="2" border="1"
+         cellpadding="10" cellspacing="1" rendered="#{empty campeonatoBean.partidas}">
+         <f:facet name="header">
+            <h:outputText value="ENTRE COM SEU TIME" rendered="#{empty campeonatoBean.partidas}"/>
+         </f:facet>
+         <h:outputLabel value="Jogador" rendered="#{empty campeonatoBean.partidas}"/>
+         <h:inputText rendered="#{empty campeonatoBean.partidas}" value="#{campeonatoBean.nomeJogador_novoTime}" />
+         <h:outputLabel value="Time" rendered="#{empty campeonatoBean.partidas}"/>
+         <h:inputText rendered="#{empty campeonatoBean.partidas}" value="#{campeonatoBean.nomeTime_novoTime}" />
+         <f:facet name="footer">
+            <h:panelGroup style="display:block; text-align:center">
+               <h:commandButton id="submit" value="ADD TIME" action="#{campeonatoBean.pegarTime}" rendered="#{empty campeonatoBean.partidas}"/>
+            </h:panelGroup>
+            <h:panelGroup style="display:block; text-align:center">
+               <h:commandButton id="submit2" value="GERAR PARTIDAS" action="#{campeonatoBean.gerarPartidas}" rendered="#{empty campeonatoBean.partidas}"/>
+               <h:inputText rendered="#{empty campeonatoBean.partidas}" value="#{campeonatoBean.rodadas}"  size="1"/>
+            </h:panelGroup>
+         </f:facet>
+      </h:panelGrid>
+   </h:form>
+	
+		  <font size="5" face="Courier New" >
 		  <h:dataTable var="n" value="#{campeonatoBean.times}" 
-		  				class = "Times" border = "1"
-		  				rendered="#{!empty campeonatoBean.times}">
-		  	  <h:column rendered="#{empty campeonatoBean.partidas}">
-			    	<f:facet name="header">Jogador</f:facet>
-    				#{n.jogador}
+		  				styleClass = "times" 
+		  				border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box"
+		  				rendered="#{!empty campeonatoBean.times}" 
+		  				style="text-align:center; font-size:30; border-style:solid"
+		  				width="100%">
+		  	  <h:column rendered="#{!empty campeonatoBean.partidas}">
+			    	<f:facet name="header" size="15">#</f:facet>
+    				#{n.posicao}
 			  </h:column>
 			  <h:column>
-			    	<f:facet name="header">Time</f:facet>
+			    	<f:facet name="header" size="25">TIME</f:facet>
     				#{n.nome}
 			  </h:column>
 			  <h:column rendered="#{!empty campeonatoBean.partidas}">
-			    	<f:facet name="header">Pontos</f:facet>
-    				#{n.pontos}
-			  </h:column>
-			  <h:column rendered="#{!empty campeonatoBean.partidas}">
-			    	<f:facet name="header">Jogos</f:facet>
+			    	<f:facet name="header" size="13">J</f:facet>
     				#{n.jogos}
 			  </h:column> 
 			  <h:column rendered="#{!empty campeonatoBean.partidas}">
-			    	<f:facet name="header">Vitorias</f:facet>
+			    	<f:facet name="header" size="3">V</f:facet>
     				#{n.vitorias}
 			  </h:column> 
 			  <h:column rendered="#{!empty campeonatoBean.partidas}">
-			    	<f:facet name="header">Empates</f:facet>
+			    	<f:facet name="header" size="3">E</f:facet>
     				#{n.empates}
 			  </h:column> 
 			  <h:column rendered="#{!empty campeonatoBean.partidas}">
-			    	<f:facet name="header">Derrotas</f:facet>
+			    	<f:facet name="header" size="3">D</f:facet>
     				#{n.derrotas}
 			  </h:column> 
 			  <h:column rendered="#{!empty campeonatoBean.partidas}">
-			    	<f:facet name="header">GP</f:facet>
+			    	<f:facet name="header" size="3">GP</f:facet>
     				#{n.gp}
 			  </h:column> 
 			  <h:column rendered="#{!empty campeonatoBean.partidas}">
-			    	<f:facet name="header">GC</f:facet>
+			    	<f:facet name="header" size="3">GC</f:facet>
     				#{n.gc}
 			  </h:column> 
 			  <h:column rendered="#{!empty campeonatoBean.partidas}">
-			    	<f:facet name="header">GS</f:facet>
+			    	<f:facet name="header" size="3">SG</f:facet>
     				#{n.gs}
 			  </h:column> 
 			  <h:column rendered="#{!empty campeonatoBean.partidas}">
-			    	<f:facet name="header">Rendimento</f:facet>
+			    	<f:facet name="header" size="3">PTS</f:facet>
+    				<strong>#{n.pontos}</strong>
+			  </h:column>
+		  	  <h:column rendered="#{empty campeonatoBean.partidas}">
+			    	<f:facet name="header" size="15">JOGADOR</f:facet>
+    				#{n.jogador}
+			  </h:column>
+			  <h:column rendered="#{!empty campeonatoBean.partidas}">
+			    	<f:facet name="header">REND (%)</f:facet>
     				#{n.rendimento}
 			  </h:column>        
 		 </h:dataTable> 
+		 <BR />
+		 
+		 
+		 <table border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box" width="100%" align="center"
+		 		style="text-align:center">
+		 		
+		 	<tr>
+			    <th align="center" width="35%">
+			    	<h:outputLabel value="#{campeonatoBean.partidaAtual.timeA.nome}" style="display:block;width:190px; text-align:center; font-size:40"/>
+			    </th>
+			    
+			    <th rowspan="2" align="center" width="30%">
+			    	<h:column rendered="#{!empty campeonatoBean.partidas}">
+					    	<h:form rendered="#{campeonatoBean.terminou=='false'}">
+						      <h:panelGrid id="panel" columns="2" border="1"
+						         cellpadding="10" cellspacing="1" rendered="#{!empty campeonatoBean.partidas}">
+						         <f:facet name="header">
+						            <h:outputText value="PARTIDA EM ANDAMENTO" rendered="#{!empty campeonatoBean.partidas}"/>
+						         </f:facet>
+						         <h:outputLabel value="#{campeonatoBean.partidaAtual.timeA.nome}" style="display:block;width:190px; text-align:center; font-size:25"/>
+						         <h:outputLabel value="#{campeonatoBean.partidaAtual.timeB.nome}" style="display:block;width:190px; text-align:center; font-size:25"/>
+						         
+						         	<h:outputLabel value="#{campeonatoBean.partidaAtual.placarA}" style="display:block;width:190px; text-align:center; font-size:140"/>
+						         	<h:outputLabel value="#{campeonatoBean.partidaAtual.placarB}" style="display:block;width:190px; text-align:center; font-size:140"/>
+						        
+						         <f:facet name="footer">
+							            
+							            <h:panelGroup style="display:block; text-align:center">
+							            	<h:form>
+											 	<h:commandButton value=" GolA " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.golA}"/> 
+											 	<h:commandButton value=" GolB " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.golB}"/>
+											 	<br />
+											 	<h:inputText 	value="#{campeonatoBean.artilheiro}" rendered="#{!empty campeonatoBean.partidas}" />
+											 	<br />
+											 	<h:commandButton value="#{campeonatoBean.mensagemFimPartida} " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.finalizarPartida}"/>  
+											 </h:form>
+							            </h:panelGroup>
+						         </f:facet>
+						         
+						         <f:facet name="footer">
+						         	<h:outputText value="PARTIDA EM ANDAMENTO" rendered="#{!empty campeonatoBean.partidas}"/>
+						         </f:facet>
+						         
+						      </h:panelGrid>
+				   			</h:form>
+				  	</h:column>
+			    </th>
+			    
+			    <th align="center" width="35%">
+			    	<h:outputLabel value="#{campeonatoBean.partidaAtual.timeB.nome}" style="display:block;width:190px; text-align:center; font-size:40"/>
+			    </th>
+		  	</tr>
+		  	
+		  	
+		  	<tr>
+			    <td>
+			    	segunda linha da primeira coluna
+			    </td>
+			    <td>
+			    	segunda linha da terceira coluna
+			    </td>
+		  	</tr>	
+
+		 </table>
+		
+		 
+		 
+		 
 		 
 		 <br />
+		 <br />
+		 <h:outputText value="  Partida atual " rendered="#{!empty campeonatoBean.partidaAtual.gols}"/>
+		 <h:dataTable var="n" value="#{campeonatoBean.partidaAtual.gols}" 
+		  				class = "Times" border = "1"
+		  				rendered="#{!empty campeonatoBean.partidaAtual.gols}"
+		  				 style="text-align:center">
+		  	  <h:column rendered="#{!empty campeonatoBean.partidaAtual.gols}">
+			    	<f:facet name="header">Jogador</f:facet>
+    				#{n.nomeArtilheiro}
+			  </h:column>
+			  <h:column rendered="#{!empty campeonatoBean.partidaAtual.gols}">
+			    	<f:facet name="header">Time</f:facet>
+    				#{n.time.nome}
+			  </h:column>
+		</h:dataTable>
+		
+		
+		<br />
 		 <h:outputText value="    ANTERIOR " rendered="#{!empty campeonatoBean.partidas}"/> 
 		 <br />
 		 <h:outputText value="#{campeonatoBean.anterPartida.timeA.nome} #{campeonatoBean.anterPartida.placarA}" 
@@ -91,22 +195,49 @@
 		 <h:outputText value="#{campeonatoBean.proxPartida.timeB.nome}" 
 		 				rendered="#{!empty campeonatoBean.partidas}"/>
 		 <br />
+		
+		
+		<br />
+		<h:outputText value=" Artilharia " rendered="#{!empty campeonatoBean.gols}"/>
+		<h:dataTable var="n" value="#{campeonatoBean.artilheiros2}" 
+		  				class = "Artilheiros" border = "1"
+		  				rendered="#{!empty campeonatoBean.gols}"
+		  				width="30%"
+		  				 style="text-align:center">
+		  	  <h:column rendered="#{!empty campeonatoBean.gols}">
+			    	<f:facet name="header">No</f:facet>
+    				#{n.posicao}
+			  </h:column>
+		  	  <h:column rendered="#{!empty campeonatoBean.gols}">
+			    	<f:facet name="header">Jogador</f:facet>
+    				#{n.nome}
+			  </h:column>
+			  <h:column rendered="#{!empty campeonatoBean.gols}">
+			    	<f:facet name="header">Gols</f:facet>
+    				#{n.gols}
+			  </h:column>
+			  <h:column rendered="#{!empty campeonatoBean.gols}">
+			    	<f:facet name="header">Time</f:facet>
+    				#{n.time.nome}
+			  </h:column>
+		</h:dataTable>	
+		
 		 <br />
-		 <br />
-		 
-		 <h:outputText value="    ATUAL " rendered="#{!empty campeonatoBean.partidas}"/> 
-		 <br />
-		 <h:outputText value="#{campeonatoBean.partidaAtual.timeA.nome} #{campeonatoBean.partidaAtual.placarA}" 
-		 				rendered="#{!empty campeonatoBean.partidas}"/> 
-		 <h:outputText value=" x " rendered="#{!empty campeonatoBean.partidas}"/>
-		 <h:outputText value="#{campeonatoBean.partidaAtual.timeB.nome} #{campeonatoBean.partidaAtual.placarB}" 
-		 				rendered="#{!empty campeonatoBean.partidas}"/>
-		 <h:form>
-		 	<h:commandButton value=" GolA " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.golA}"/> 
-		 	<h:commandButton value=" GolB " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.golB}"/>
-		 	<h:inputText 	value="#{campeonatoBean.artilheiro}" rendered="#{!empty campeonatoBean.partidas}" />
-		 	<h:commandButton value=" Fim de Partida " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.finalizarPartida}"/>  
-		 </h:form>
-		   
+		<h:outputText value=" PARTIDAS " rendered="#{!empty campeonatoBean.partidas}"/>
+		<h:dataTable var="n" value="#{campeonatoBean.partidas}" 
+		  				class = "Partidas" border = "1"
+		  				rendered="#{!empty campeonatoBean.partidas}"
+		  				width="30%"
+		  				 style="text-align:center">
+		  		<h:column rendered="#{!empty campeonatoBean.partidas}">
+			    	<f:facet name="header">No</f:facet>
+    				#{n.id}
+			  </h:column>
+		  	  <h:column rendered="#{!empty campeonatoBean.partidas}">
+			    	<f:facet name="header">Partida</f:facet>
+    				#{n.confronto}
+			  </h:column>
+		</h:dataTable>	   
+		 </font>  
 	</h:body>
 </html>
