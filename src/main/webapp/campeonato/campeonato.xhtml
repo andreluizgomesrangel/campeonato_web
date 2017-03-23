@@ -6,6 +6,95 @@
       <h:head>
       	<h:title value="teste"/>
       	
+      	<script type="text/javascript">
+    //put this somewhere in "show.html"
+    //using window onload event to run function
+    //so function runs after all content has been loaded.
+    //After refresh this entire script will run again.
+    window.onload = function () {
+        'use strict';
+        var millisecondsBeforeRefresh = 7000; //Adjust time here
+        window.setTimeout(function () {
+            //refresh the entire document
+            document.location.reload();
+        }, millisecondsBeforeRefresh);
+    };
+</script>
+      	
+      	
+      	<style>
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-family: Courier New;
+}
+
+.button5 {
+    background-color: white;
+    color: black;
+    border: 0px solid #555555;
+}
+
+
+
+.button5:hover {
+    background-color: #4CAF50;    color: white;
+	font-size: 26px;
+}
+
+.buttonFim {
+    background-color: white;
+    color: black;
+    border: 0px solid #555555;
+    font-family: Courier New;
+}
+
+.buttonFim:hover {
+	font-weight: bold;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 20px;
+    font-align: center;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    -webkit-transition: 0.8s;
+    transition: 0.8s;
+    outline: none;
+}
+
+
+input[type=text]:focus {
+    border: 2px solid #555;
+    background-color: Azure;
+}
+
+
+#demo-table {
+    border-collapse: collapse;
+    width: 100%;
+    tr:nth-child(even){background-color: #f2f2f2}
+    th, td {
+    text-align: left;
+    padding: 8px;
+	}
+	th {background-color: black;color: white;}
+}
+
+</style>
+      	
       </h:head>
 	<h:body>
 	
@@ -36,12 +125,14 @@
 	
 		  <font size="5" face="Courier New" >
 		  <h:dataTable var="n" value="#{campeonatoBean.times}" 
-		  				styleClass = "times" 
+		  				id="demo-table"
 		  				border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box"
 		  				rendered="#{!empty campeonatoBean.times}" 
-		  				style="text-align:center; font-size:30; border-style:solid"
+		  				style="text-align:center; font-size:30; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
 		  				width="100%">
+		  	
 		  	  <h:column rendered="#{!empty campeonatoBean.partidas}">
+
 			    	<f:facet name="header" size="15">#</f:facet>
     				#{n.posicao}
 			  </h:column>
@@ -94,7 +185,7 @@
 		 
 		 
 		 <table border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box" width="100%" align="center"
-		 		style="text-align:center">
+		 		style="text-align:center" rendered="#{!empty campeonatoBean.partidas}">
 		 		
 		 	<tr>
 			    <th align="center" width="35%">
@@ -107,31 +198,30 @@
 						      <h:panelGrid id="panel" columns="2" border="1"
 						         cellpadding="10" cellspacing="1" rendered="#{!empty campeonatoBean.partidas}">
 						         <f:facet name="header">
-						            <h:outputText value="PARTIDA EM ANDAMENTO" rendered="#{!empty campeonatoBean.partidas}"/>
+						         	
+						            <h:commandButton value="PARTIDA EM ANDAMENTO"  class="button buttonFim" rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.refresh}"/>
 						         </f:facet>
-						         <h:outputLabel value="#{campeonatoBean.partidaAtual.timeA.nome}" style="display:block;width:190px; text-align:center; font-size:25"/>
-						         <h:outputLabel value="#{campeonatoBean.partidaAtual.timeB.nome}" style="display:block;width:190px; text-align:center; font-size:25"/>
 						         
-						         	<h:outputLabel value="#{campeonatoBean.partidaAtual.placarA}" style="display:block;width:190px; text-align:center; font-size:140"/>
-						         	<h:outputLabel value="#{campeonatoBean.partidaAtual.placarB}" style="display:block;width:190px; text-align:center; font-size:140"/>
-						        
+						         	<h:commandButton value="#{campeonatoBean.partidaAtual.placarA}" class="button button5" action="#{campeonatoBean.golA}" style="display:block;width:190px; text-align:center; font-size:140">
+						         		
+						         	</h:commandButton>
+						         	<h:commandButton value="#{campeonatoBean.partidaAtual.placarB}" class="button button5" action="#{campeonatoBean.golB}" style="display:block;width:190px; text-align:center; font-size:140">
+									<f:ajax execute="@form" render="@form" />
+						         	</h:commandButton>	 	
 						         <f:facet name="footer">
 							            
 							            <h:panelGroup style="display:block; text-align:center">
 							            	<h:form>
-											 	<h:commandButton value=" GolA " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.golA}"/> 
-											 	<h:commandButton value=" GolB " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.golB}"/>
+											 	<h:inputText p:placeholder="artilherio..." value="#{campeonatoBean.artilheiro}" rendered="#{!empty campeonatoBean.partidas}" />
 											 	<br />
-											 	<h:inputText 	value="#{campeonatoBean.artilheiro}" rendered="#{!empty campeonatoBean.partidas}" />
-											 	<br />
-											 	<h:commandButton value="#{campeonatoBean.mensagemFimPartida} " rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.finalizarPartida}"/>  
+											 	<h:commandButton value="#{campeonatoBean.mensagemFimPartida} " class="button buttonFim"  rendered="#{!empty campeonatoBean.partidas}" action="#{campeonatoBean.finalizarPartida}"> 
+											 		
+											 	</h:commandButton> 
 											 </h:form>
 							            </h:panelGroup>
 						         </f:facet>
 						         
-						         <f:facet name="footer">
-						         	<h:outputText value="PARTIDA EM ANDAMENTO" rendered="#{!empty campeonatoBean.partidas}"/>
-						         </f:facet>
+						         
 						         
 						      </h:panelGrid>
 				   			</h:form>
@@ -145,11 +235,14 @@
 		  	
 		  	
 		  	<tr>
-			    <td>
-			    	segunda linha da primeira coluna
+			    <td >
+			    	<h:outputLabel value="#{capeonatoBean.partidaAtual.timeA.jogador}">
+			    	</h:outputLabel>
+			    	
+			 
 			    </td>
 			    <td>
-			    	segunda linha da terceira coluna
+			    	
 			    </td>
 		  	</tr>	
 
@@ -202,7 +295,7 @@
 		<h:dataTable var="n" value="#{campeonatoBean.artilheiros2}" 
 		  				class = "Artilheiros" border = "1"
 		  				rendered="#{!empty campeonatoBean.gols}"
-		  				width="30%"
+		  				width="100%"
 		  				 style="text-align:center">
 		  	  <h:column rendered="#{!empty campeonatoBean.gols}">
 			    	<f:facet name="header">No</f:facet>
