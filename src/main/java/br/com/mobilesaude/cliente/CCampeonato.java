@@ -11,6 +11,29 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import br.com.mobilesaude.cliente.source.Campeonato;
+/*
+ * 
+ * 
+ * <script type="text/javascript">
+    //put this somewhere in "show.html"
+    //using window onload event to run function
+    //so function runs after all content has been loaded.
+    //After refresh this entire script will run again.
+   // window.onload = function () {
+       // 'use strict';
+        //var millisecondsBeforeRefresh = 1000; //Adjust time here
+        //window.setTimeout(function () {
+            //refresh the entire document
+           // document.location.reload();
+        //}, millisecondsBeforeRefresh);
+   // };
+</script>
+ * 
+ * 
+ */
+
+
+
 
 public class CCampeonato{
 
